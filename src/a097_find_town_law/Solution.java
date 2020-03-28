@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 public class Solution {
-    public int findJudge(int N, int[][] trust) {
+    public int findJudge2(int N, int[][] trust) {
         Map<Integer, List<Integer>> map = new HashMap<>();
         for (int i = 0; i < trust.length; i++) {
             if (trust[i][0] > N || trust[i][0] <= 0) {
@@ -41,4 +41,24 @@ public class Solution {
         return law;
 
     }
+
+    public int findJudge(int N, int[][] trust) {
+        int[] degree = new int[N + 1];
+        for (int i = 1; i < degree.length; i++) {
+            degree[i] = 0;
+        }
+        for (int i = 0; i < trust.length; i++) {
+            degree[trust[i][0]] = degree[trust[i][0]] - 1;
+            degree[trust[i][1]] = degree[trust[i][1]] + 1;
+        }
+
+        for (int i = 1; i < degree.length; i++) {
+            if (degree[i] == N -1) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+
 }
